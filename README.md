@@ -3,6 +3,8 @@
 
 ![gulp-count in action](screenshot.png)
 
+This plugin is very similar to [gulp-debug](https://github.com/sindresorhus/gulp-debug) but is designed as an actual permanent part of your workflow, not just a debug tool. As such, it provides more control over logging to customize as needed.
+
 ## Usage
 First, install `gulp-count` as a development dependency:
 
@@ -26,7 +28,6 @@ gulp.task('copy', function() {
 ## API
 gulp-count can be called with a string message template, an options object, or both.
 
-### count([message], options)
 ```javascript
 gulp.src('*.html')
     .pipe(count()) // logs "36 files"
@@ -37,6 +38,8 @@ gulp.src('*.html')
         logger: (msg) -> alert(msg) // alerts "36 files? That's 36 too many!"
     });
 ```
+
+### count([message], options)
 
 #### message, options.message
 Type: `String`
