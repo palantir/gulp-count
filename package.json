@@ -1,0 +1,33 @@
+{
+  "name": "gulp-count",
+  "version": "0.0.1",
+  "description": "count files in vinyl streams",
+  "main": "index.js",
+  "dependencies": {
+    "xtend": "^4.0.0",
+    "through2": "^0.6.3",
+    "gulp-util": "^3.0.2"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.8.0"
+  },
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script/register spec.coffee",
+    "prepublish": "coffee -c index.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/palantir/gulp-count.git"
+  },
+  "keywords": [
+    "gulp",
+    "gulpplugin",
+    "count"
+  ],
+  "author": "Palantir Technologies",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/palantir/gulp-count/issues"
+  },
+  "homepage": "https://github.com/palantir/gulp-count"
+}
