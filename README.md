@@ -49,6 +49,12 @@ also expands the shorthand `"##"` to `"<%= counter %>"`.
 
 The number of files (`counter` variable) is logged in magenta and file paths are logged in yellow.
 
+#### options.title
+Type: `String`
+
+String prepended to every message to distinguish the output of multiple instances logging at once.
+A falsy value will omit title from the message.
+
 #### options.logFiles
 Type: `Boolean`
 

@@ -106,3 +106,9 @@ describe 'gulp-count', ->
       message = filenames.map((f) -> path.join(__dirname, f).substring(1)).join('')
       message += '3 files'
       test {logFiles: true, cwd: '/'}, files, message, done
+
+    it 'title is prepended to every message', (done) ->
+      filenames = ['one.txt', 'two.csv', 'three.php']
+      files = filenames.map (f) -> makeFile(new PassThrough(), true, f)
+      message = filenames.map((f) -> 'test: ' + f).join('') + 'test: 3 files'
+      test {title: 'test', logFiles: true}, files, message, done

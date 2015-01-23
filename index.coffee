@@ -15,6 +15,7 @@ logging (but defaults to `gutil.log`).
   variables: `counter` - the number of files processed, and `files` - string of the format
   `X file[s]` where X is `counter` and 'files' is pluralized if necessary. the symbol `'##'`
   is expanded internally to `<%= counter %>`.
+@option options [String] title string prepended to every message `"[title]: [message]"`
 @option options [Boolean] logFiles whether to log each file path as it is counted (default: `false`)
 @option options [String] cwd directory for logging relative file paths (default: `''`)
 @option options [Function] logger function to call with formatted message (default: `gutil.log`)
@@ -36,6 +37,7 @@ module.exports = (message, options = {}) ->
   # default options
   options = extend {
     cwd: ''
+    title: null
     logger: gutil.log
     message: message or '<%= files %>'
   }, options
@@ -44,12 +46,16 @@ module.exports = (message, options = {}) ->
 
   message = options.message.replace '##', '<%= counter %>'
 
+  log = (msg) ->
+    if options.title then msg = options.title + ": " + msg
+    options.logger(msg)
+
   # transform: increment counter for every file
   increment = (file, enc, cb) ->
     if file.stat.isFile()
       counter++
       if options.logFiles
-        options.logger gutil.colors.yellow(path.relative(options.cwd, file.path))
+        log gutil.colors.yellow(path.relative(options.cwd, file.path))
     cb(null, file)
 
   # flush: log message when stream ends
@@ -57,7 +63,7 @@ module.exports = (message, options = {}) ->
     if counter > 0
       counterStr = gutil.colors.magenta(counter)
       filesStr = "#{counterStr} file#{(if counter > 1 then 's' else '')}"
-      options.logger gutil.template(message, {files: filesStr, counter: counterStr, file: null})
+      log gutil.template(message, {files: filesStr, counter: counterStr, file: null})
     cb()
 
   return through.obj increment, logCount
