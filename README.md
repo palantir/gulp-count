@@ -1,6 +1,8 @@
 # gulp-count
 > Count files in vinyl streams. Log pretty messages.
 
+![gulp-count in action](screenshot.png)
+
 ## Usage
 First, install `gulp-count` as a development dependency:
 
@@ -75,3 +77,6 @@ Type: `Function`
 Default: `gutil.log`
 
 Logger function, called once at the end with formatted `message` and once per file with filepath if `logFiles` is enabled.
+
+## License
+MIT &copy; [Palantir Technologies](http://palantir.com)

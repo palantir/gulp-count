@@ -1,8 +1,9 @@
 {
   "name": "gulp-count",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "count files in vinyl streams",
   "main": "index.js",
+  "files": ["index.js", "*.coffee"],
   "dependencies": {
     "xtend": "^4.0.0",
     "through2": "^0.6.3",
