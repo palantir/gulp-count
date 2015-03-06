@@ -1,4 +1,7 @@
 # gulp-count
+
+[![Build Status](https://travis-ci.org/palantir/gulp-count.svg?branch=master)](https://travis-ci.org/palantir/gulp-count)
+
 > Count files in vinyl streams. Log pretty messages.
 
 ![gulp-count in action](screenshot.png)
