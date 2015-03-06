@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "description": "count files in vinyl streams",
   "main": "index.js",
-  "files": ["index.js", "*.coffee"],
+  "files": [
+    "index.js"
+  ],
   "dependencies": {
-    "xtend": "^4.0.0",
-    "through2": "^0.6.3",
-    "gulp-util": "^3.0.2"
+    "xtend": "4.0.0",
+    "through2": "0.6.3",
+    "gulp-util": "3.0.2"
   },
   "devDependencies": {
-    "coffee-script": "^1.8.0"
+    "coffee-script": "1.8.0",
+    "mocha": "2.1.0"
   },
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register test.coffee",
