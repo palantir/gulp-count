@@ -40,45 +40,52 @@ gulp.src('*.html')
     });
 ```
 
-### count([message], options)
+### count([message,] options)
 
 #### message, options.message
-Type: `String`
+_Type_: `String`
 
-Default: `'<%= files %>'`
+_Default_: `"<%= files %>"`
 
-Template string for total count message, passed through `gutil.template`.
+Template string for total count message, passed through [`gutil.template`](https://github.com/gulpjs/gulp-util#templatestring-data).
 
-Template receives two variables: `counter`, the number of files encountered in this stream, and
-`files`, a correctly pluralized string of the format "X file[s]" where X is `counter`. The template
-also expands the shorthand `"##"` to `"<%= counter %>"`.
+Template receives two variables:
+
+1. `counter`, the number of files encountered in this stream,
+2. `files`, a correctly pluralized string of the format "X file[s]" where X is `counter`.
+
+The template also expands the shorthand `"##"` to `"<%= counter %>"`.
 
 The number of files (`counter` variable) is logged in magenta and file paths are logged in yellow.
 
 #### options.title
-Type: `String`
+_Type_: `String`
 
 String prepended to every message to distinguish the output of multiple instances logging at once.
 A falsy value will omit title from the message.
 
 #### options.logFiles
-Type: `Boolean`
+_Type_: `Boolean | String`
 
-Default: `false`
+_Default_: `false`
 
 Whether to log each file path as it is encountered. `options.cwd` determines base path for logging.
 
-#### options.cwd
-Type: `String`
+If a string is provided then it is used as the message template. Template receives two variables:
+1. `file` - Vinyl file instance
+2. `path` - file path resolved relative to `options.cwd` and colored yellow.
 
-Default: `''`
+#### options.cwd
+_Type_: `String`
+
+_Default_: `""`
 
 Current working directory for logging file paths.
 
 #### options.logger
-Type: `Function`
+_Type_: `Function`
 
-Default: `gutil.log`
+_Default_: `gutil.log`
 
 Logger function, called once at the end with formatted `message` and once per file with filepath if `logFiles` is enabled.
 
