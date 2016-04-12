@@ -23,6 +23,10 @@ logging (but defaults to `gutil.log`).
   (default: `false`)
 @option options [String] cwd directory for logging relative file paths (default: `''`)
 @option options [Function] logger function to call with formatted message (default: `gutil.log`)
+@option options [Boolean] includeZero specifies if include results with no rows
+  (default: `false`)
+@option options [Boolean] onlyZero works with includeZero, specifies if include only results with no rows
+  (default: `false`)
 @example
   gulp.src('*.html')
     .pipe count() # logs '36 files'
@@ -44,6 +48,8 @@ module.exports = (message, options = {}) ->
     title: null
     logger: gutil.log
     message: message ? '<%= files %>'
+    includeZero: false
+    onlyZero: false
   }, options
 
   counter = 0
@@ -64,7 +70,7 @@ module.exports = (message, options = {}) ->
 
   # flush: log message when stream ends
   logCount = (cb) ->
-    if counter > 0
+    if ((counter > 0 and not options.includeZero) or (options.includeZero and not options.onlyZero) or (counter is 0 and options.includeZero and options.onlyZero))
       counterStr = gutil.colors.magenta(counter)
       filesStr = "#{counterStr} file#{(if counter > 1 then 's' else '')}"
       if options.message
