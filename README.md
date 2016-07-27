@@ -75,5 +75,25 @@ Current working directory for logging file paths.
 
 Logger function, called once at the end and once per file if `logFiles` is enabled.
 
+#### options.title
+_Type_: `String`
+
+String prepended to every message to distinguish the output of multiple instances logging at once.
+A falsy value will omit title from the message.
+
+#### options.includeZero
+_Type_: `Boolean`
+
+_Default_: `false`
+
+Specifies if include results with no rows.
+
+#### options.onlyZero
+_Type_: `Boolean`
+
+_Default_: `false`
+
+Works with options.includeZero, specifies if include only results with no rows.
+
 ## License
 MIT &copy; [Palantir Technologies](http://palantir.com)
