@@ -4,7 +4,7 @@
 
 ![gulp-count in action](screenshot.png)
 
-This plugin is very similar to [gulp-debug](https://github.com/sindresorhus/gulp-debug) but is designed as an actual permanent part of your workflow, not just a debug tool. As such, it provides more control over logging to customize as needed.
+This plugin solves a similar problem to [gulp-debug](https://github.com/sindresorhus/gulp-debug) but is designed as an actual permanent part of your workflow, not just a debug tool (though it still makes a great debug tool!). As such, it provides more control over logging to customize as needed.
 
 ## Usage
 First, install `gulp-count` as a development dependency:
@@ -40,34 +40,26 @@ gulp.src('*.html')
     });
 ```
 
-### count([message,] options)
+### `count(options?)`
+### `count(message, options?)`
 
-#### message, options.message
-_Type_: `String`
-
-_Default_: `"<%= files %>"`
+##### `options.message: string = "<%= files %>"`
 
 Template string for total count message, passed through [`gutil.template`](https://github.com/gulpjs/gulp-util#templatestring-data).
 
-Template receives two variables:
+Template can use two variables:
 
 1. `counter`, the number of files encountered in this stream,
 2. `files`, a correctly pluralized string of the format "X file[s]" where X is `counter`.
 
 The template also expands the shorthand `"##"` to `"<%= counter %>"`.
 
-The number of files (`counter` variable) is logged in magenta and file paths are logged in yellow.
-
-#### options.title
-_Type_: `String`
+##### `options.title: string`
 
 String prepended to every message to distinguish the output of multiple instances logging at once.
-A falsy value will omit title from the message.
+A falsy value will print nothing.
 
-#### options.logFiles
-_Type_: `Boolean | String`
-
-_Default_: `false`
+##### `options.logFiles: boolean | string = false`
 
 Whether to log each file path as it is encountered. `options.cwd` determines base path for logging.
 
@@ -75,19 +67,13 @@ If a string is provided then it is used as the message template. Template receiv
 1. `file` - Vinyl file instance
 2. `path` - file path resolved relative to `options.cwd` and colored yellow.
 
-#### options.cwd
-_Type_: `String`
-
-_Default_: `""`
+##### `options.cwd: string = ""`
 
 Current working directory for logging file paths.
 
-#### options.logger
-_Type_: `Function`
+##### `options.logger: (message) => any = gutil.log`
 
-_Default_: `gutil.log`
-
-Logger function, called once at the end with formatted `message` and once per file with filepath if `logFiles` is enabled.
+Logger function, called once at the end and once per file if `logFiles` is enabled.
 
 ## License
 MIT &copy; [Palantir Technologies](http://palantir.com)
