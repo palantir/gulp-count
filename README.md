@@ -49,8 +49,8 @@ Template string for total count message, passed through [`gutil.template`](https
 
 Template can use two variables:
 
-1. `counter`, the number of files encountered in this stream,
-2. `files`, a correctly pluralized string of the format "X file[s]" where X is `counter`.
+1. `counter` - the number of files encountered in this stream,
+2. `files` - a correctly pluralized string of the format "X file[s]" where X is `counter`.
 
 The template also expands the shorthand `"##"` to `"<%= counter %>"`.
 
@@ -64,12 +64,13 @@ A falsy value will print nothing.
 Whether to log each file path as it is encountered. `options.cwd` determines base path for logging.
 
 If a string is provided then it is used as the message template. Template receives two variables:
-1. `file` - Vinyl file instance
+
+1. `file` - the current Vinyl file instance
 2. `path` - file path resolved relative to `options.cwd` and colored yellow.
 
 ##### `options.cwd: string = ""`
 
-Current working directory for logging file paths.
+Current working directory against which file paths are resolved in template strings.
 
 ##### `options.logger: (message) => any = gutil.log`
 
