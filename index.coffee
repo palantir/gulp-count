@@ -74,8 +74,7 @@ module.exports = (message, options = {}) ->
     if counter == 0 and options.logEmpty
       message = if typeof options.logEmpty is 'string' then options.logEmpty else DEFAULT_MSG
       log gutil.template(message, {files: filesStr, counter: counterStr, file: null})
-    else if counter > 0 or options.logEmpty
-      if typeof options.message is 'string'
+    else if counter > 0 and typeof options.message is 'string'
         message = options.message.replace '##', '<%= counter %>'
         log gutil.template(message, {files: filesStr, counter: counterStr, file: null})
     cb()
