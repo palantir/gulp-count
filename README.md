@@ -43,7 +43,7 @@ gulp.src('*.html')
 ### `count(options?)`
 ### `count(message, options?)`
 
-##### `options.message: string = "<%= files %>"`
+##### `options.message: boolean | string = "<%= files %>"`
 
 Template string for total count message, passed through [`gutil.template`](https://github.com/gulpjs/gulp-util#templatestring-data).
 
@@ -54,10 +54,7 @@ Template can use two variables:
 
 The template also expands the shorthand `"##"` to `"<%= counter %>"`.
 
-##### `options.title: string`
-
-String prepended to every message to distinguish the output of multiple instances logging at once.
-A falsy value will print nothing.
+An explicit `false` value will disable the message (use `logFiles` or `logEmpty` instead).
 
 ##### `options.logFiles: boolean | string = false`
 
@@ -68,6 +65,19 @@ If a string is provided then it is used as the message template. Template receiv
 1. `file` - the current Vinyl file instance
 2. `path` - file path resolved relative to `options.cwd` and colored yellow.
 
+##### `options.logEmpty: boolean | string = false`
+
+Whether to log the message when the stream is empty.
+
+If a string is provided then it is used as the message template and receives the same variables as `options.message`.
+
+Setting `{ message: false, logEmpty: true }` will log _if and only if_ the stream is empty.
+
+##### `options.title: string`
+
+String prepended to every message to distinguish the output of multiple instances logging at once.
+A falsy value will print nothing.
+
 ##### `options.cwd: string = ""`
 
 Current working directory against which file paths are resolved in template strings.
@@ -76,11 +86,6 @@ Current working directory against which file paths are resolved in template stri
 
 Logger function, called once at the end and once per file if `logFiles` is enabled.
 
-##### `options.logEmpty: boolean | string = false`
-
-Whether to log results with no files.
-
-If a string is provided then it is used as the message template.
 
 ## License
 MIT &copy; [Palantir Technologies](http://palantir.com)

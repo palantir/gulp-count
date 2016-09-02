@@ -3,6 +3,8 @@ through = require 'through2'
 extend  = require 'xtend'
 path    = require 'path'
 
+DEFAULT_MSG = '<%= files %>'
+
 ###
 Count files in stream and log message when stream ends. Only counts *files*, ignores directories and
 other types of stream contents. Supports buffer and stream contents. Passes files through unchanged.
@@ -23,9 +25,8 @@ logging (but defaults to `gutil.log`).
   (default: `false`)
 @option options [String] cwd directory for logging relative file paths (default: `''`)
 @option options [Function] logger function to call with formatted message (default: `gutil.log`)
-@option options [Boolean|String] logEmpty whether to log results with no files. if a
-  string is provided then it is used as the message template
-  (default: `false`)
+@option options [Boolean|String] logEmpty whether to log empty streams (no files). if a
+  string is provided then it is used as the message template. (default: `false`)
 @example
   gulp.src('*.html')
     .pipe count() # logs '36 files'
@@ -46,7 +47,7 @@ module.exports = (message, options = {}) ->
     cwd: ''
     title: null
     logger: gutil.log
-    message: message ? '<%= files %>'
+    message: message ? DEFAULT_MSG
     logEmpty: false
   }, options
 
@@ -68,15 +69,15 @@ module.exports = (message, options = {}) ->
 
   # flush: log message when stream ends
   logCount = (cb) ->
-    if counter > 0 or options.logEmpty
-      counterStr = gutil.colors.magenta(counter)
-      filesStr = "#{counterStr} file#{(if counter != 1 then 's' else '')}"
-      if options.message
+    counterStr = gutil.colors.magenta(counter)
+    filesStr = "#{counterStr} file#{(if counter != 1 then 's' else '')}"
+    if counter == 0 and options.logEmpty
+      message = if typeof options.logEmpty is 'string' then options.logEmpty else DEFAULT_MSG
+      log gutil.template(message, {files: filesStr, counter: counterStr, file: null})
+    else if counter > 0 or options.logEmpty
+      if typeof options.message is 'string'
         message = options.message.replace '##', '<%= counter %>'
-        if options.logEmpty and typeof options.logEmpty is 'string'
-          log gutil.template(options.logEmpty, {files: filesStr, counter: counterStr, file: null})
-        else
-          log gutil.template(message, {files: filesStr, counter: counterStr, file: null})
+        log gutil.template(message, {files: filesStr, counter: counterStr, file: null})
     cb()
 
   return through.obj increment, logCount
