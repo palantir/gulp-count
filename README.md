@@ -76,5 +76,11 @@ Current working directory against which file paths are resolved in template stri
 
 Logger function, called once at the end and once per file if `logFiles` is enabled.
 
+##### `options.logEmpty: boolean | string = false`
+
+Whether to log results with no files.
+
+If a string is provided then it is used as the message template.
+
 ## License
 MIT &copy; [Palantir Technologies](http://palantir.com)

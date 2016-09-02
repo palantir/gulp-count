@@ -112,3 +112,14 @@ describe 'gulp-count', ->
       files = filenames.map (f) -> makeFile(new PassThrough(), f)
       message = filenames.map((f) -> 'test: ' + f).join('') + 'test: 3 files'
       test {title: 'test', logFiles: true}, files, message, done
+
+    it 'logEmpty option shows results with at least one file', (done) ->
+      test {logEmpty: true}, [
+        makeFile(new PassThrough())
+      ], '1 file', done
+
+    it 'logEmpty option shows results with no files', (done) ->
+      test {logEmpty: true}, [], '0 files', done
+
+    it 'logEmpty option string used as template', (done) ->
+      test {logEmpty: 'custom log 1'}, [], 'custom log 1', done

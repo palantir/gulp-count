@@ -23,6 +23,9 @@ logging (but defaults to `gutil.log`).
   (default: `false`)
 @option options [String] cwd directory for logging relative file paths (default: `''`)
 @option options [Function] logger function to call with formatted message (default: `gutil.log`)
+@option options [Boolean|String] logEmpty whether to log results with no files. if a
+  string is provided then it is used as the message template
+  (default: `false`)
 @example
   gulp.src('*.html')
     .pipe count() # logs '36 files'
@@ -44,6 +47,7 @@ module.exports = (message, options = {}) ->
     title: null
     logger: gutil.log
     message: message ? '<%= files %>'
+    logEmpty: false
   }, options
 
   counter = 0
@@ -64,12 +68,15 @@ module.exports = (message, options = {}) ->
 
   # flush: log message when stream ends
   logCount = (cb) ->
-    if counter > 0
+    if counter > 0 or options.logEmpty
       counterStr = gutil.colors.magenta(counter)
-      filesStr = "#{counterStr} file#{(if counter > 1 then 's' else '')}"
+      filesStr = "#{counterStr} file#{(if counter != 1 then 's' else '')}"
       if options.message
         message = options.message.replace '##', '<%= counter %>'
-        log gutil.template(message, {files: filesStr, counter: counterStr, file: null})
+        if options.logEmpty and typeof options.logEmpty is 'string'
+          log gutil.template(options.logEmpty, {files: filesStr, counter: counterStr, file: null})
+        else
+          log gutil.template(message, {files: filesStr, counter: counterStr, file: null})
     cb()
 
   return through.obj increment, logCount
