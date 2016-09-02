@@ -70,6 +70,11 @@ describe 'gulp-count', ->
         makeFile(new Buffer('hello world'))
       ], '', done
 
+    it 'explicit true logs default message', (done) ->
+      test {message: true}, [
+        makeFile(new Buffer('hello world'))
+      ], '1 file', done
+
     it 'can pass message as first argument', (done) ->
       message = null
       stream = count '## sources updated',

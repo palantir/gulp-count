@@ -51,6 +51,9 @@ module.exports = (message, options = {}) ->
     logEmpty: false
   }, options
 
+  if options.message == true
+    options.message = DEFAULT_MSG
+
   counter = 0
 
   log = (msg) ->
