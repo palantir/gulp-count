@@ -84,7 +84,7 @@ Current working directory against which file paths are resolved in template stri
 
 ##### `options.logger: (message) => any = gutil.log`
 
-Logger function, called once at the end and once per file if `logFiles` is enabled.
+Logger function, called with each formatted message. Defaults to gulp-util's [`log(msg...)`](https://github.com/gulpjs/gulp-util#logmsg) function.
 
 
 ## License
