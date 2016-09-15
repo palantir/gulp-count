@@ -102,6 +102,10 @@ describe 'gulp-count', ->
     it 'string is used as template', (done) ->
       test {logEmpty: 'NO FILES'}, [], 'NO FILES', done
 
+    it 'message=false logs only when stream is empty', (done) ->
+      test {message: false, logEmpty: true}, [makeFile(new PassThrough())], '', ->
+        test {message: false, logEmpty: true}, [], '0 files', done
+
   describe 'logFiles', ->
     it 'logs each relative file path', (done) ->
       filenames = ['one.txt', 'two.csv', 'three.php']
