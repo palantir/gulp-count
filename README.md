@@ -1,4 +1,4 @@
-# gulp-count [![CircleCI](https://circleci.com/gh/palantir/gulp-count.svg?style=svg)](https://circleci.com/gh/palantir/gulp-count)
+# gulp-count [![npm](https://img.shields.io/npm/v/gulp-count.svg)](https://www.npmjs.com/package/gulp-count) [![CircleCI](https://circleci.com/gh/palantir/gulp-count.svg?style=svg)](https://circleci.com/gh/palantir/gulp-count)
 
 > Count files in vinyl streams. Log pretty messages.
 
