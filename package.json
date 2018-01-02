@@ -14,13 +14,13 @@
   },
   "devDependencies": {
     "coffee-script": "^1.12.7",
-    "mocha": "2.x",
+    "mocha": "^4.1.0",
     "strip-ansi": "^4.0.0",
     "vinyl": "^2.1.0"
   },
   "scripts": {
     "compile": "coffee -c index.coffee",
-    "test": "mocha --compilers coffee:coffee-script/register test.coffee"
+    "test": "mocha --require coffee-script/register test.coffee"
   },
   "repository": {
     "type": "git",
