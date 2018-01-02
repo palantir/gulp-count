@@ -17,8 +17,7 @@
   },
   "scripts": {
     "compile": "coffee -c index.coffee",
-    "test": "mocha --compilers coffee:coffee-script/register test.coffee",
-    "prepublish": "npm run compile"
+    "test": "mocha --compilers coffee:coffee-script/register test.coffee"
   },
   "repository": {
     "type": "git",
