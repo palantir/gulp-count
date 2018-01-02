@@ -1,3 +1,4 @@
+colors  = require 'ansi-colors'
 gutil   = require 'gulp-util'
 through = require 'through2'
 extend  = require 'xtend'
@@ -64,7 +65,7 @@ module.exports = (message, options = {}) ->
   increment = (file, enc, cb) ->
     counter++
     if options.logFiles
-      filepath = gutil.colors.yellow(path.relative(options.cwd, file.path))
+      filepath = colors.yellow(path.relative(options.cwd, file.path))
       if typeof options.logFiles is 'string'
         log gutil.template(options.logFiles, {path: filepath, file: file})
       else log filepath
@@ -72,7 +73,7 @@ module.exports = (message, options = {}) ->
 
   # flush: log message when stream ends
   logCount = (cb) ->
-    counterStr = gutil.colors.magenta(counter)
+    counterStr = colors.magenta(counter)
     filesStr = "#{counterStr} file#{(if counter != 1 then 's' else '')}"
     if counter == 0 and options.logEmpty
       message = if typeof options.logEmpty is 'string' then options.logEmpty else DEFAULT_MSG

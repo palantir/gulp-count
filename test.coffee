@@ -2,6 +2,7 @@
 
 assert = require 'assert'
 gutil  = require 'gulp-util'
+stripColor = require 'strip-ansi'
 path   = require 'path'
 PassThrough = require('stream').PassThrough
 
@@ -15,8 +16,7 @@ makeFile = (contents, path) ->
 # test count() plugin with given options, files, and expected output
 test = (options, files, expectedMessage, done) ->
   message = ''
-  options.logger = (msg) ->
-    message += gutil.colors.stripColor(msg)
+  options.logger = (msg) -> message += stripColor(msg)
 
   stream = count(options)
 
@@ -78,7 +78,7 @@ describe 'gulp-count', ->
     it 'can pass message as first argument', (done) ->
       message = null
       stream = count '## sources updated',
-        logger: (msg) -> message = gutil.colors.stripColor(msg)
+        logger: (msg) -> message = stripColor(msg)
 
       stream.on 'data', -> # no op
       stream.on 'end', ->
