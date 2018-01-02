@@ -1,22 +1,22 @@
 # run with `mocha --compilers coffee:coffee-script/register gulp/util/test`
 
 assert = require 'assert'
-gutil  = require 'gulp-util'
-path   = require 'path'
 PassThrough = require('stream').PassThrough
+path = require 'path'
+stripColor = require 'strip-ansi'
+Vinyl = require 'vinyl'
 
 count = require './index.coffee'
 
 
-# create a vinyl File instance that may or not be a file :P
+# create a Vinyl file instance that may or not be a file :P
 makeFile = (contents, path) ->
-  return new gutil.File {path, contents}
+  return new Vinyl {path, contents}
 
 # test count() plugin with given options, files, and expected output
 test = (options, files, expectedMessage, done) ->
   message = ''
-  options.logger = (msg) ->
-    message += gutil.colors.stripColor(msg)
+  options.logger = (msg) -> message += stripColor(msg)
 
   stream = count(options)
 
@@ -78,7 +78,7 @@ describe 'gulp-count', ->
     it 'can pass message as first argument', (done) ->
       message = null
       stream = count '## sources updated',
-        logger: (msg) -> message = gutil.colors.stripColor(msg)
+        logger: (msg) -> message = stripColor(msg)
 
       stream.on 'data', -> # no op
       stream.on 'end', ->
