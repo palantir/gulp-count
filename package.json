@@ -9,11 +9,11 @@
   "dependencies": {
     "ansi-colors": "^1.0.1",
     "lodash.template": "^4.4.0",
-    "through2": "~2.0.0",
-    "xtend": "~4.0.0"
+    "through2": "^2.0.3",
+    "xtend": "^4.0.1"
   },
   "devDependencies": {
-    "coffee-script": "1.x",
+    "coffee-script": "^1.12.7",
     "mocha": "2.x",
     "strip-ansi": "^4.0.0",
     "vinyl": "^2.1.0"
