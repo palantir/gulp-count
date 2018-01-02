@@ -1,16 +1,16 @@
 colors  = require 'ansi-colors'
-gutil   = require 'gulp-util'
 through = require 'through2'
 extend  = require 'xtend'
 path    = require 'path'
+template = require 'lodash.template'
 
 DEFAULT_MSG = '<%= files %>'
 
 ###
 Count files in stream and log message when stream ends. Only counts *files*, ignores directories and
 other types of stream contents. Supports buffer and stream contents. Passes files through unchanged.
-Message is passed through `gutil.template` to allow for custom formatting. Also supports custom
-logging (but defaults to `gutil.log`).
+Message is passed through `template` to allow for custom formatting. Also supports custom
+logging (but defaults to `console.log`).
 
 @param message [String] optional message format (see options)
 @param options [Object] options object
@@ -25,7 +25,7 @@ logging (but defaults to `gutil.log`).
   vinyl file instance, and `path` - file path resolved relative to `cwd` and colored yellow.
   (default: `false`)
 @option options [String] cwd directory for logging relative file paths (default: `''`)
-@option options [Function] logger function to call with formatted message (default: `gutil.log`)
+@option options [Function] logger function to call with formatted message (default: `console.log`)
 @option options [Boolean|String] logEmpty whether to log empty streams (no files). if a
   string is provided then it is used as the message template. (default: `false`)
 @example
@@ -47,7 +47,7 @@ module.exports = (message, options = {}) ->
   options = extend {
     cwd: ''
     title: null
-    logger: gutil.log
+    logger: console.log
     message: message ? DEFAULT_MSG
     logEmpty: false
   }, options
@@ -67,7 +67,7 @@ module.exports = (message, options = {}) ->
     if options.logFiles
       filepath = colors.yellow(path.relative(options.cwd, file.path))
       if typeof options.logFiles is 'string'
-        log gutil.template(options.logFiles, {path: filepath, file: file})
+        log template(options.logFiles)({ path: filepath, file: file })
       else log filepath
     cb(null, file)
 
@@ -77,10 +77,10 @@ module.exports = (message, options = {}) ->
     filesStr = "#{counterStr} file#{(if counter != 1 then 's' else '')}"
     if counter == 0 and options.logEmpty
       message = if typeof options.logEmpty is 'string' then options.logEmpty else DEFAULT_MSG
-      log gutil.template(message, {files: filesStr, counter: counterStr, file: null})
+      log template(message)({ files: filesStr, counter: counterStr, file: null })
     else if counter > 0 and typeof options.message is 'string'
         message = options.message.replace '##', '<%= counter %>'
-        log gutil.template(message, {files: filesStr, counter: counterStr, file: null})
+        log template(message)({ files: filesStr, counter: counterStr, file: null })
     cb()
 
   return through.obj increment, logCount
