@@ -1,17 +1,17 @@
 # run with `mocha --compilers coffee:coffee-script/register gulp/util/test`
 
 assert = require 'assert'
-gutil  = require 'gulp-util'
-stripColor = require 'strip-ansi'
-path   = require 'path'
 PassThrough = require('stream').PassThrough
+path = require 'path'
+stripColor = require 'strip-ansi'
+Vinyl = require 'vinyl'
 
 count = require './index.coffee'
 
 
-# create a vinyl File instance that may or not be a file :P
+# create a Vinyl file instance that may or not be a file :P
 makeFile = (contents, path) ->
-  return new gutil.File {path, contents}
+  return new Vinyl {path, contents}
 
 # test count() plugin with given options, files, and expected output
 test = (options, files, expectedMessage, done) ->

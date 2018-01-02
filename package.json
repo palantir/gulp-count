@@ -15,7 +15,8 @@
   "devDependencies": {
     "coffee-script": "1.x",
     "mocha": "2.x",
-    "strip-ansi": "^4.0.0"
+    "strip-ansi": "^4.0.0",
+    "vinyl": "^2.1.0"
   },
   "scripts": {
     "compile": "coffee -c index.coffee",
